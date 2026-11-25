@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spot · Stoke Feast</title>
+  <meta name="description" content="Slacklining and highlining videos filmed at one spot.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M5 40 Q50 70 95 40' stroke='%23d4a72c' stroke-width='10' fill='none' stroke-linecap='round'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Work+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="spot-page">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <a class="brand" href="index.html" aria-label="Stoke Feast home">
+      <svg viewBox="0 0 48 20" aria-hidden="true"><path d="M2 4 Q24 18 46 4" /></svg>
+      <span>Stoke Feast</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="map.html" aria-current="page">Map</a>
+      <a href="channels.html">Channels</a>
+      <a href="timeline.html">Timeline</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Filled in by spot.js from the ?id= in the address, e.g. spot.html?id=moab -->
+    <section class="spot-hero">
+      <!-- ART PLACEHOLDER: topo lines, could become a hand-drawn sketch of each spot -->
+      <svg class="topo" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke-width="1.4">
+          <path d="M-20 300 C120 220 220 330 360 250 S600 140 820 210"/>
+          <path d="M-20 260 C110 190 230 290 360 210 S610 100 820 170"/>
+          <path d="M-20 220 C100 160 240 250 360 170 S620 60 820 130"/>
+          <path d="M-20 180 C90 130 250 210 360 130 S630 20 820 90"/>
+          <path d="M-20 340 C130 260 210 370 360 290 S590 180 820 250"/>
+          <path d="M-20 380 C140 300 200 410 360 330 S580 220 820 290"/>
+          <path d="M520 120 C560 90 640 95 650 130 S580 175 540 160 S490 140 520 120Z"/>
+          <path d="M545 125 C570 108 620 112 625 132 S580 155 556 147 S528 137 545 125Z"/>
+        </g>
+      </svg>
+      <div class="wrap spot-hero-inner">
+        <a class="back-link" href="map.html" id="back-link">← Back to the globe</a>
+        <p class="kicker" id="spot-kicker">Spot</p>
+        <h1 id="spot-name">Loading…</h1>
+        <p class="spot-region" id="spot-region"></p>
+        <p class="spot-meta" id="spot-meta"></p>
+      </div>
+    </section>
+
+    <section class="spot-videos" aria-labelledby="videos-title">
+      <div class="wrap">
+        <h2 id="videos-title" class="visually-hidden">Videos</h2>
+        <ol class="video-list" id="video-list"></ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <!-- ART PLACEHOLDER: footer landscape, could become an engraved illustration -->
+    <svg class="footer-art" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <path class="far" d="M0 260 L0 150 L160 90 L280 140 L420 60 L560 130 L700 80 L860 150 L1000 70 L1150 140 L1300 90 L1440 130 L1440 260 Z"/>
+      <path class="line" d="M420 62 Q560 96 700 82"/>
+      <g class="walker" transform="translate(548 76)"><circle cx="0" cy="-15" r="3.2"/><path d="M0 -12 L0 -2 M0 -9 L-8 -13 M0 -9 L8 -14 M0 -2 L-3 6 M0 -2 L3 6"/></g>
+      <path class="near" d="M0 260 L0 200 L120 170 L240 210 L380 160 L520 205 L660 180 L800 215 L960 165 L1100 205 L1260 175 L1440 210 L1440 260 Z"/>
+    </svg>
+    <div class="footer-inner wrap">
+      <div>
+        <p class="footer-brand">Stoke Feast</p>
+        <p class="footer-note">Videos belong to their creators and play from YouTube or Vimeo.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="map.html">Map</a>
+        <a href="channels.html">Channels</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="videos.js"></script>
+  <script src="spots.js"></script>
+  <script src="site.js"></script>
+  <script src="spot.js"></script>
+</body>
+</html>

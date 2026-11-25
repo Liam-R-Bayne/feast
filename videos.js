@@ -1,126 +1,45 @@
 /*
-  ============================================================
-  THE VIDEO LIST  —  this is the only file you need to edit
-  ============================================================
-
-  To add a video, copy one of the blocks below (from { to },)
-  paste it at the end of the list, and change the values.
+  THE VIDEO LIST
+  Built from the "Videos" sheet of "Stoke Feast videos.xlsx" by
+  tools/import_spreadsheet.py. Easiest: edit the spreadsheet and re-run the
+  import. Small fixes straight in this file are fine too.
 
   Fields:
-    title        The name shown on the card.
-    url          The normal YouTube or Vimeo link, copied from your
-                 browser's address bar. Leave it as "" for a placeholder.
-    discipline   One of: highline, longline, trickline, waterline, rodeo, midline
-                 (Paused for now: kept in the data but not shown on the site.)
-    type         One of: tutorial, documentary, edit, safety, competition, talk
-    tags         Any extra words to help search, in quotes, separated by commas.
-    description  One or two sentences about why the video is worth watching.
-    featured     true or false. Not used on the site yet.
-
-  Tips:
-    - Keep the quotes "" around text, and the comma after each closing },
-    - If the page goes blank after an edit, a missing comma or quote is
-      almost always the cause.
+    id           Running number from the sheet.
+    title        Name shown on the video card.
+    url          Normal YouTube or Vimeo link.
+    channel      Channel or person who posted it.
+    people       Athletes or riggers in the video.
+    published    Date the video came out (YYYY-MM-DD).
+    discipline   Recorded but not shown yet (the filter is paused).
+    type         tutorial, video, edit, documentary, safety, competition, talk
+    locations    Spot ids from spots.js. A video shows on each spot's page.
+    tags         Extra words.
+    description  One or two sentences, shown on the card.
+    featured     true or false. Not used yet.
 */
-
 window.VIDEOS = [
-  {
-    title: "Placeholder: Your first highline",
-    url: "",
-    discipline: "highline",
-    type: "tutorial",
-    tags: ["first time", "leash", "mindset"],
-    description: "Placeholder entry. Replace with a real video about stepping onto a highline for the first time.",
-    featured: true
-  },
-  {
-    title: "Placeholder: Highline rigging basics",
-    url: "",
-    discipline: "highline",
-    type: "safety",
-    tags: ["rigging", "anchors", "backup"],
-    description: "Placeholder entry. Replace with a rigging or safety video.",
-    featured: true
-  },
-  {
-    title: "Placeholder: Big highline documentary",
-    url: "",
-    discipline: "highline",
-    type: "documentary",
-    tags: ["expedition", "mountains"],
-    description: "Placeholder entry. Replace with a highline documentary or story.",
-    featured: true
-  },
-  {
-    title: "Placeholder: Highline full-man and catch",
-    url: "",
-    discipline: "highline",
-    type: "tutorial",
-    tags: ["falls", "leash", "catch"],
-    description: "Placeholder entry. Replace with a video on falling and getting back on the line.",
-    featured: false
-  },
-  {
-    title: "Placeholder: Highline festival edit",
-    url: "",
-    discipline: "highline",
-    type: "edit",
-    tags: ["festival", "community"],
-    description: "Placeholder entry. Replace with a highlight edit.",
-    featured: false
-  },
-  {
-    title: "Placeholder: Longline walking technique",
-    url: "",
-    discipline: "longline",
-    type: "tutorial",
-    tags: ["sway", "focus"],
-    description: "Placeholder entry. Replace with a longline video.",
-    featured: false
-  },
-  {
-    title: "Placeholder: First trickline tricks",
-    url: "",
-    discipline: "trickline",
-    type: "tutorial",
-    tags: ["bounce", "butt bounce"],
-    description: "Placeholder entry. Replace with a trickline video.",
-    featured: false
-  },
-  {
-    title: "Placeholder: Trickline competition",
-    url: "",
-    discipline: "trickline",
-    type: "competition",
-    tags: ["contest"],
-    description: "Placeholder entry. Replace with a trickline competition video.",
-    featured: false
-  },
-  {
-    title: "Placeholder: Waterline session",
-    url: "",
-    discipline: "waterline",
-    type: "edit",
-    tags: ["lake", "summer"],
-    description: "Placeholder entry. Replace with a waterline video.",
-    featured: false
-  },
-  {
-    title: "Placeholder: Rodeo line flow",
-    url: "",
-    discipline: "rodeo",
-    type: "edit",
-    tags: ["slack", "swing"],
-    description: "Placeholder entry. Replace with a rodeo line video.",
-    featured: false
-  },
-  {
-    title: "Placeholder: Midline as highline practice",
-    url: "",
-    discipline: "midline",
-    type: "tutorial",
-    tags: ["practice", "progression"],
-    description: "Placeholder entry. Replace with a midline video.",
-    featured: false
-  }
+  {"id": 1, "title": "Leashless on Bongzilla - Sketchy Andy's Slacklife Ep. 3", "url": "https://www.youtube.com/watch?v=kUhNAw8hHy4", "channel": "EpicTV", "people": ["Andy Lewis"], "published": "2013-07-30", "discipline": "highline", "type": "video", "locations": ["moab", "yosemite", "boulder"], "tags": ["free solo", "world record", "Bongzilla", "Lost Arrow Spire"], "description": "Sketchy Andy tells the story of his quest for the highline free solo world record, from a naked Lost Arrow Spire walk to Bongzilla in Moab.", "featured": false},
+  {"id": 2, "title": "HIGHLINING CALIFORNIA - Full Version", "url": "https://www.youtube.com/watch?v=evkUKFIW5B0", "channel": "Slackline Montréal", "people": ["Pierre Carrillo", "Eric Rasmussen", "Jerry Misjewski", "Julien Desforges", "Dhanae Audet-Beaulieu"], "published": "2012-03-22", "discipline": "highline", "type": "video", "locations": ["yosemite", "san-francisco"], "tags": ["road trip", "Lost Arrow Spire", "Taft Point", "Yosemite Falls", "Golden Gate"], "description": "A crew of young highliners road-trips California, from Yosemite Falls, Taft Point and Lost Arrow Spire to a line facing the Golden Gate Bridge that ends with park rangers.", "featured": false},
+  {"id": 3, "title": "Samuel Volery: \"The Slackline Legend\" (Documentary)", "url": "https://www.youtube.com/watch?v=R0p9HgSxRGQ", "channel": "Jonas Konijnenberg", "people": ["Samuel Volery", "Tijmen van Dieren", "Ando Francini", "Tobias Rodenkirch"], "published": "2026-10-13", "discipline": "highline", "type": "video", "locations": ["churfisten", "norway", "morocco"], "tags": ["world record", "jumpline", "highline freestyle", "handstand", "lightning"], "description": "Portrait of Samuel Volery: world-record megalines from the Churfisten to a 2.8 km line in Norway, and his role in inventing highline freestyle.", "featured": false},
+  {"id": 4, "title": "Free Solo Highline at the Eichhorn Pinnacle in Yosemite", "url": "https://www.youtube.com/watch?v=NnFUkUU1hdk", "channel": "Friedi Kühne", "people": ["Friedi Kühne"], "published": "2019-09-02", "discipline": "highline", "type": "edit", "locations": ["eichhorn-pinnacle"], "tags": ["free solo", "Yosemite high country", "exposure turn"], "description": "Friedi Kühne free solos a 65 m highline at the Eichhorn Pinnacle in the Yosemite high country.", "featured": false},
+  {"id": 5, "title": "World Record Free Solo - Insane Slacklining!", "url": "https://www.youtube.com/watch?v=EzrI8BeOw_0", "channel": "Moxley", "people": ["Spencer Seabrooke"], "published": "2015-08-10", "discipline": "highline", "type": "edit", "locations": ["squamish"], "tags": ["free solo", "world record", "Stawamus Chief", "drone"], "description": "Spencer Seabrooke walks 'the Itus', a 64 m line 290 m up the Stawamus Chief, for the free solo world record (August 2, 2015).", "featured": false},
+  {"id": 6, "title": "Is This the Hardest Slackline Trick Ever?", "url": "https://www.youtube.com/watch?v=sjH0N10pEVg", "channel": "Trickline Collective", "people": ["Alex Fernandez", "Andy Lewis", "Davis Hermes", "Ian Eisenberg", "Mike Ashworth"], "published": "2026-10-28", "discipline": "freestyle", "type": "video", "locations": ["boulder"], "tags": ["tricks", "history", "540 Impossible", "space tricks"], "description": "A history of slacklining's hardest tricks, building up to Alex Fernandez's 540 Impossible.", "featured": false},
+  {"id": 7, "title": "24 Hours on a Slackline?!", "url": "https://www.youtube.com/watch?v=Zawypx2aZZM", "channel": "Trickline Collective", "people": ["Davis Hermes"], "published": "2026-10-13", "discipline": "park line", "type": "video", "locations": ["boulder"], "tags": ["endurance", "world record", "24 hours"], "description": "Davis Hermes tries to stay on a slackline for 24 hours and comes away with three world records.", "featured": false},
+  {"id": 8, "title": "Why I Broke the Freesolo World Record | Lucia Mason", "url": "https://www.youtube.com/watch?v=3umaubWWjm8", "channel": "Trickline Collective", "people": ["Lucia Mason"], "published": "2026-09-28", "discipline": "highline", "type": "video", "locations": ["yosemite"], "tags": ["free solo", "women's world record", "interview", "Sierra Point"], "description": "Lucia Mason talks about her 2022 free solo world record, a 33 m walk at Sierra Point in Yosemite.", "featured": false},
+  {"id": 9, "title": "Andy Lewis hikes Moab desert slackline | Power & Sport - Episode 1", "url": "https://www.youtube.com/watch?v=r8yV4Var8dg", "channel": "Watch InTravel TV", "people": ["Andy Lewis"], "published": "2026-02-24", "discipline": "highline", "type": "video", "locations": ["moab"], "tags": ["desert", "fear", "Super Bowl"], "description": "Andy Lewis hikes into the Moab desert to walk a 40 m high slackline and talks about fear and practice.", "featured": false},
+  {"id": 10, "title": "ACROSS THE SKY - a world record slackline in the Utah desert", "url": "https://www.youtube.com/watch?v=WXOSiKMg8rk", "channel": "Camp4Collective", "people": ["Théo Sanson", "Andy Lewis"], "published": "2020-01-13", "discipline": "highline", "type": "video", "locations": ["castleton-tower"], "tags": ["world record", "rigging", "Castle Valley"], "description": "Théo Sanson walks nearly 500 m from The Rectory to Castleton Tower in Castle Valley, Utah, on November 15, 2015.", "featured": false},
+  {"id": 11, "title": "FOUNDATION | Influence of a Japanese Slackline Legend", "url": "https://www.youtube.com/watch?v=WY7i9LPKwUI", "channel": "Trickline Collective", "people": ["Toru \"Gappai\" Osugi", "Davis Hermes", "Rikuto Nakamura", "Yuka Katogi"], "published": "2026-01-20", "discipline": "trickline", "type": "video", "locations": ["japan"], "tags": ["Japan", "legacy", "mentorship", "injury"], "description": "Trickline legend Gappai reconnects with slacklining through teaching and a new discipline, alongside the generation he inspired.", "featured": false},
+  {"id": 12, "title": "INSANE World Record Slackline with Sketchy Andy & Mia!", "url": "https://www.youtube.com/watch?v=CdLW1KFVBFs", "channel": "Levi Allen", "people": ["Spencer Seabrooke", "Mia Noblet", "Andy Lewis", "Friedi Kühne", "Levi Allen"], "published": "2023-09-17", "discipline": "highline", "type": "video", "locations": ["castleton-tower", "moab", "the-lions"], "tags": ["world record", "women's record", "Slack HQ", "Castleton"], "description": "Levi Allen follows Spencer Seabrooke and Mia to Andy Lewis's Slack HQ and a world-record attempt on the Castleton Tower highline.", "featured": false},
+  {"id": 13, "title": "Dean Potter: The Core - Rock Climb, Slackline and Highline in Yosemite Valley", "url": "https://www.youtube.com/watch?v=PoyX8z5235c", "channel": "Diogo Freire", "people": ["Dean Potter"], "published": "2017-01-18", "discipline": "highline", "type": "video", "locations": ["yosemite"], "tags": ["climbing", "Half Dome", "El Capitan", "legend"], "description": "A tribute to Dean Potter's climbing, slacklining and highlining in Yosemite Valley.", "featured": false},
+  {"id": 14, "title": "The Terrifying art of Free Solo Slacklining UNTETHERED - Full Documentary", "url": "https://www.youtube.com/watch?v=Ac_t4pNYr1g", "channel": "Levi Allen", "people": ["Spencer Seabrooke", "Friedi Kühne", "Levi Allen"], "published": "2019-01-06", "discipline": "highline", "type": "video", "locations": ["squamish"], "tags": ["free solo", "Stawamus Chief", "Canada's longest highline"], "description": "Spencer Seabrooke and Friedi Kühne rig Canada's longest highline above Squamish and push free solo highlining.", "featured": false},
+  {"id": 15, "title": "Lines Between Us - A Slackline Film", "url": "https://www.youtube.com/watch?v=RDVaUFdqMmE", "channel": "Trickline Collective", "people": ["Martin", "Kieran"], "published": "2021-05-03", "discipline": "Mix", "type": "video", "locations": ["boulder"], "tags": ["community", "parkline", "trickline", "highline"], "description": "A film about how slackliners across tricklining, parklining and highlining connect through the lines and the people.", "featured": false},
+  {"id": 16, "title": "Frontrange Freestylers 4.0", "url": "https://www.youtube.com/watch?v=cnlbew10q3k", "channel": "Trickline Collective", "people": [], "published": "2025-08-11", "discipline": "freestyle", "type": "edit", "locations": ["boulder"], "tags": ["Front Range", "highline freestyle", "Colorado"], "description": "Boulder's highline freestylers throw flips and technical combos on Colorado's Front Range.", "featured": false},
+  {"id": 17, "title": "The Art of Highlining (How to Highline)", "url": "https://www.youtube.com/watch?v=A0CnFjVLvz4", "channel": "Theo Trips", "people": ["Theo Goff", "Caleb Pegues", "Zack Bruch", "Angel", "Thor Nomad", "Tristan Kuhn"], "published": "2025-01-02", "discipline": "highline", "type": "tutorial", "locations": ["hawaii"], "tags": ["how to", "rigging", "Oahu", "vanlife"], "description": "Theo learns to rig and walk a highline above the jungle on Oahu with the local slackline community.", "featured": false},
+  {"id": 18, "title": "Life On The Slackline (Documentary)", "url": "https://www.youtube.com/watch?v=g0wMUyvaDiQ", "channel": "LifeontheSlackline", "people": ["Lukas Irmler", "Yuri Rhodenborgh", "Sebastian Segraves", "Cor Vinke", "Felix Brodocz", "Lewis Bertrand-Shelton", "Valentin Rapp"], "published": "2018-12-13", "discipline": "Mix", "type": "video", "locations": [], "tags": ["community", "history", "student documentary"], "description": "A short documentary meeting slackliners from around the world about their community and what the sport is about.", "featured": false},
+  {"id": 19, "title": "Highlining the Totempole HD", "url": "https://www.youtube.com/watch?v=rFM3OUUL5fI", "channel": "danielahnen", "people": ["Jens"], "published": "2010-01-25", "discipline": "highline", "type": "edit", "locations": ["tasmania"], "tags": ["Totem Pole", "sea stack", "Cape Hauy"], "description": "A 17 m highline to the top of the Totem Pole, a 65 m sea stack in Tasmania.", "featured": false},
+  {"id": 20, "title": "10 Years of Slackline Progression | Justin Wagers", "url": "https://www.youtube.com/watch?v=88My6lrSUuA", "channel": "Trickline Collective", "people": ["Justin Wagers"], "published": "2021-11-08", "discipline": "Mix", "type": "edit", "locations": ["boulder"], "tags": ["progression", "montage"], "description": "Ten years of Justin Wagers' slackline progression in one edit.", "featured": false},
+  {"id": 21, "title": "GGBY | The Thanksgiving Highline Gathering", "url": "https://www.youtube.com/watch?v=NCU86FnBQEY", "channel": "Wanderlust Imagery", "people": [], "published": "2019-11-17", "discipline": "highline", "type": "video", "locations": ["moab"], "tags": ["GGBY", "Fruit Bowl", "festival", "Thanksgiving", "community"], "description": "The story of GGBY, the Thanksgiving highline gathering at the Fruit Bowl outside Moab, and how organizers protect the desert.", "featured": false},
+  {"id": 22, "title": "Another Day in Magic Wood", "url": "https://www.youtube.com/watch?v=KK-vnfFmwyc", "channel": "Ian Eisenberg", "people": ["Ian Eisenberg"], "published": "2023-07-30", "discipline": "freestyle", "type": "edit", "locations": ["magic-wood"], "tags": ["highline freestyle", "tribute", "forest"], "description": "Nonstop highline freestyle in the forest of Magic Wood, a tribute to Samuel Volery's 'One Day in Magic Wood'.", "featured": false},
+  {"id": 23, "title": "Wiggle Boys - Highline Freestyle Edit", "url": "https://www.youtube.com/watch?v=uuFlRIMmP8M", "channel": "Benni Schmid", "people": ["Benni Schmid", "Axel Weber"], "published": "2020-08-11", "discipline": "freestyle", "type": "edit", "locations": ["stuttgart"], "tags": ["highline freestyle", "combos", "forest"], "description": "Benni Schmid and Axel Weber progress their highline freestyle combos in a German forest.", "featured": false}
 ];
