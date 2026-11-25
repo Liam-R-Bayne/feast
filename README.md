@@ -1,8 +1,8 @@
 # Feast
 
-A hand-curated collection of slacklining videos, with a focus on highlining.
-Visitors can browse by discipline (highline, longline, trickline, waterline, rodeo, midline),
-filter by level and video type, search, and play videos right on the page.
+**Stoke Feast**: a hand-curated collection of slacklining videos, with a focus on highlining.
+The site has a home page plus three sections: a Map, Channels & People, and a Timeline.
+The three sections are placeholders for now.
 
 The site is plain HTML, CSS and JavaScript. There is no server, database or build step,
 and it is hosted for free on GitHub Pages.
@@ -20,10 +20,14 @@ Allowed values (also listed at the top of `videos.js`):
 
 | Field | Values |
 |---|---|
-| `discipline` | `highline`, `longline`, `trickline`, `waterline`, `rodeo`, `midline` |
-| `level` | `beginner`, `intermediate`, `advanced`, `all` |
+| `discipline` | `highline`, `longline`, `trickline`, `waterline`, `rodeo`, `midline` (paused, not shown yet) |
 | `type` | `tutorial`, `documentary`, `edit`, `safety`, `competition`, `talk` |
-| `featured` | `true` shows it in the Featured row at the top |
+| `featured` | `true` or `false` (not used yet) |
+
+## Home page photos
+
+The rotating photos on the home page are listed at the top of **`home.js`**.
+Put a new photo in `images/home/` and add a line for it there.
 
 If the page goes blank after an edit, a missing comma or quote in `videos.js` is almost always the cause.
 
@@ -43,6 +47,8 @@ Double-click `index.html` to open it in your browser. No install needed.
 ## Files
 
 - `videos.js` – the video list
-- `index.html` – page layout
-- `style.css` – colours and layout
-- `app.js` – filtering, search and the video player
+- `index.html` – home page
+- `map.html`, `channels.html`, `timeline.html` – section pages (coming soon)
+- `home.js` – home page photo slideshow and its photo list
+- `style.css` – colours, fonts and layout (the colour palette is at the top)
+- `images/home/` – home page photos

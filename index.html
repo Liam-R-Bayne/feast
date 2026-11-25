@@ -3,65 +3,152 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Feast · Hand-picked slackline videos</title>
-  <meta name="description" content="A hand-curated collection of the best slacklining videos, with a focus on highlining.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M5 40 Q50 70 95 40' stroke='%23f97316' stroke-width='8' fill='none'/></svg>">
+  <title>Stoke Feast · Hand-picked slackline videos</title>
+  <meta name="description" content="A hand-curated collection of slacklining videos from around the world, with a focus on highlining.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M5 40 Q50 70 95 40' stroke='%23d4a72c' stroke-width='10' fill='none' stroke-linecap='round'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Work+Sans:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header class="hero">
-    <div class="hero-inner">
-      <svg class="line-art" viewBox="0 0 400 60" aria-hidden="true">
-        <path d="M0 10 Q200 50 400 10" />
-      </svg>
-      <h1>Feast</h1>
-      <p class="tagline">Hand-picked slackline videos, with a soft spot for highlining.</p>
-    </div>
+<body class="home">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <a class="brand" href="index.html" aria-label="Stoke Feast home">
+      <svg viewBox="0 0 48 20" aria-hidden="true"><path d="M2 4 Q24 18 46 4" /></svg>
+      <span>Stoke Feast</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="map.html">Map</a>
+      <a href="channels.html">Channels</a>
+      <a href="timeline.html">Timeline</a>
+    </nav>
   </header>
 
-  <main>
-    <section id="featured-section" aria-labelledby="featured-title">
-      <h2 id="featured-title">Featured</h2>
-      <div id="featured" class="grid featured"></div>
+  <!-- HERO: rotating photos. The photo list lives at the top of home.js. -->
+  <section class="hero" aria-label="Welcome">
+    <div class="slides" id="slides">
+      <img class="slide is-active" src="images/home/image1.webp" alt="A highliner balancing high above a forested valley">
+    </div>
+    <div class="hero-shade" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <!-- ART PLACEHOLDER: swap this sun for Liam's own hand-drawn art -->
+      <svg class="hero-sun art-placeholder" viewBox="0 0 120 120" aria-hidden="true">
+        <g class="rays">
+          <path d="M60 4 L66 30 L60 26 L54 30 Z"/><path d="M60 116 L54 90 L60 94 L66 90 Z"/>
+          <path d="M4 60 L30 54 L26 60 L30 66 Z"/><path d="M116 60 L90 66 L94 60 L90 54 Z"/>
+          <path d="M20 20 L41 36 L35 37 L36 41 Z"/><path d="M100 100 L79 84 L85 83 L84 79 Z"/>
+          <path d="M100 20 L84 41 L83 35 L79 36 Z"/><path d="M20 100 L36 79 L37 85 L41 84 Z"/>
+        </g>
+        <circle cx="60" cy="60" r="22"/>
+      </svg>
+      <p class="kicker">Hand-picked slackline videos</p>
+      <h1>
+        <span class="welcome">Welcome to the</span>
+        <span class="title">Stoke Feast</span>
+      </h1>
+      <a class="btn" href="#about">Start exploring</a>
+    </div>
+
+    <div class="slide-controls">
+      <span class="slide-count" id="slide-count" aria-live="polite"></span>
+      <div class="dots" id="dots" role="group" aria-label="Choose photo"></div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Highline</span><i>✺</i><span>Longline</span><i>✺</i><span>Trickline</span><i>✺</i><span>Waterline</span><i>✺</i><span>Rodeo</span><i>✺</i><span>Midline</span><i>✺</i>
+      <span>Highline</span><i>✺</i><span>Longline</span><i>✺</i><span>Trickline</span><i>✺</i><span>Waterline</span><i>✺</i><span>Rodeo</span><i>✺</i><span>Midline</span><i>✺</i>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="wrap about-grid">
+        <div class="about-text">
+          <p class="eyebrow">About the feast</p>
+          <h2 id="about-title">Big lines, wild places, and the people who walk them</h2>
+          <!-- PLACEHOLDER: replace this 200-word paragraph with the real site description -->
+          <p class="placeholder-copy">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. Nam libero.
+          </p>
+          <span class="tag">Placeholder text</span>
+        </div>
+
+        <figure class="about-photo">
+          <img src="images/home/image9.avif" alt="A highliner silhouetted against a full moon between red rock towers" loading="lazy">
+          <!-- ART PLACEHOLDER: rotating sticker badge -->
+          <svg class="sticker" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><path id="sticker-ring" d="M100 100 m-72 0 a72 72 0 1 1 144 0 a72 72 0 1 1 -144 0"/></defs>
+            <circle cx="100" cy="100" r="96"/>
+            <text><textPath href="#sticker-ring" textLength="446" lengthAdjust="spacing">Stay leashed ✺ Send it ✺ Stay leashed ✺ Send it ✺</textPath></text>
+            <path class="sticker-line" d="M52 96 Q100 128 148 96"/>
+            <circle class="sticker-walker" cx="100" cy="94" r="7"/>
+          </svg>
+        </figure>
+      </div>
     </section>
 
-    <section aria-labelledby="browse-title">
-      <h2 id="browse-title">Browse</h2>
+    <svg class="ridge ridge-sand" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 120 L0 70 L120 30 L210 64 L330 8 L470 72 L560 46 L700 92 L820 36 L930 66 L1060 14 L1190 70 L1300 40 L1440 78 L1440 120 Z"/>
+    </svg>
 
-      <nav class="disciplines" id="disciplines" aria-label="Disciplines"></nav>
-      <p class="discipline-blurb" id="blurb"></p>
+    <section class="explore" aria-labelledby="explore-title">
+      <div class="wrap">
+        <p class="eyebrow">Ways in</p>
+        <h2 id="explore-title">Find your next line</h2>
 
-      <div class="filters">
-        <label>Level
-          <select id="level"></select>
-        </label>
-        <label>Type
-          <select id="type"></select>
-        </label>
-        <label class="search">Search
-          <input id="search" type="search" placeholder="e.g. rigging, leash, falls">
-        </label>
+        <div class="cards">
+          <a class="explore-card" href="map.html">
+            <div class="art-slot"><span>Art: hand-drawn globe</span></div>
+            <span class="num">01</span>
+            <h3>The Map</h3>
+            <p>Spin the globe and dive into the spots where the videos were filmed. Bigger dots, more videos.</p>
+            <span class="soon">Coming soon →</span>
+          </a>
+          <a class="explore-card" href="channels.html">
+            <div class="art-slot"><span>Art: walker portrait</span></div>
+            <span class="num">02</span>
+            <h3>Channels &amp; People</h3>
+            <p>Every video grouped by who made it, from crews like Trickline Collective to legends like Dean Potter.</p>
+            <span class="soon">Coming soon →</span>
+          </a>
+          <a class="explore-card" href="timeline.html">
+            <div class="art-slot"><span>Art: trail of footprints</span></div>
+            <span class="num">03</span>
+            <h3>The Timeline</h3>
+            <p>Scroll through the history of the sport, from the first lines to today's record walks.</p>
+            <span class="soon">Coming soon →</span>
+          </a>
+        </div>
       </div>
-
-      <p class="count" id="count" aria-live="polite"></p>
-      <div id="results" class="grid"></div>
     </section>
   </main>
 
-  <footer>
-    <p>Videos belong to their creators and play from YouTube or Vimeo. Know a great one? Get in touch.</p>
+  <footer class="site-footer">
+    <!-- ART PLACEHOLDER: footer landscape, could become an engraved illustration -->
+    <svg class="footer-art" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <path class="far" d="M0 260 L0 150 L160 90 L280 140 L420 60 L560 130 L700 80 L860 150 L1000 70 L1150 140 L1300 90 L1440 130 L1440 260 Z"/>
+      <path class="line" d="M420 62 Q560 96 700 82"/>
+      <g class="walker" transform="translate(548 76)"><circle cx="0" cy="-15" r="3.2"/><path d="M0 -12 L0 -2 M0 -9 L-8 -13 M0 -9 L8 -14 M0 -2 L-3 6 M0 -2 L3 6"/></g>
+      <path class="near" d="M0 260 L0 200 L120 170 L240 210 L380 160 L520 205 L660 180 L800 215 L960 165 L1100 205 L1260 175 L1440 210 L1440 260 Z"/>
+    </svg>
+    <div class="footer-inner wrap">
+      <div>
+        <p class="footer-brand">Stoke Feast</p>
+        <p class="footer-note">Videos belong to their creators and play from YouTube or Vimeo.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="map.html">Map</a>
+        <a href="channels.html">Channels</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
   </footer>
 
-  <dialog id="player" aria-label="Video player">
-    <div class="player-frame" id="player-frame"></div>
-    <div class="player-info">
-      <h3 id="player-title"></h3>
-      <p id="player-desc"></p>
-    </div>
-    <button class="close" id="player-close" aria-label="Close">×</button>
-  </dialog>
-
-  <script src="videos.js"></script>
-  <script src="app.js"></script>
+  <script src="home.js"></script>
 </body>
 </html>
