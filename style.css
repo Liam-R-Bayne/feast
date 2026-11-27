@@ -118,7 +118,7 @@ body:not(.home) .site-header {
 }
 .site-nav a.nav-map:hover { background: none; border-color: transparent; color: inherit; }
 .nav-map > * { grid-area: 1 / 1; transition: opacity .3s ease, transform .3s ease; }
-.nav-map-icon { height: 1.25rem; width: auto; }
+.nav-map-icon { height: 3.75rem; width: auto; margin: -1.25rem 0; }  /* negative margin keeps the header height unchanged */
 .nav-map-label { opacity: 0; transform: scale(.85); }
 .site-nav a.nav-map[aria-current="page"] { border-color: transparent; background: none; }
 .site-nav a.nav-map[aria-current="page"] .nav-map-icon { filter: drop-shadow(0 0 6px rgba(212, 167, 44, .7)); }
