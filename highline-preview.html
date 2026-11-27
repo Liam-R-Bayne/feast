@@ -28,11 +28,9 @@
     .highline-band svg { display: block; width: 100%; height: 200px; }
     .hl-main   { fill: none; stroke: var(--bark); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
     .hl-backup { fill: none; stroke: var(--rust); stroke-width: 2; stroke-linecap: round; }
-    .hl-tape   { fill: var(--paper); stroke: var(--bark); stroke-width: .8; }
     .hl-leash  { fill: none; stroke: var(--rust); stroke-width: 1.8; stroke-linecap: round; }
     .hl-ring   { fill: none; stroke: var(--bark); stroke-width: 1.6; }
     .hl-body   { fill: none; stroke: var(--bark); stroke-width: 4.2; stroke-linecap: round; stroke-linejoin: round; }
-    .hl-far    { opacity: .55; }
     .hl-head   { fill: var(--bark); }
     .debug .hl-joint { fill: var(--paper); stroke: var(--bark); stroke-width: 1; }
     .hl-joint { display: none; }
@@ -59,7 +57,7 @@
 <script>
 /* Highliner banner: a stick figure walks a highline (main line + backup taped
    beneath it). Everything is computed each frame, so the line deflects under the
-   walker and bounces a little on each footfall. No libraries. */
+   walker and swings slowly as the steps nudge it. No libraries. */
 (function () {
   const NS = "http://www.w3.org/2000/svg";
   const svg = document.getElementById("highline");
@@ -71,10 +69,12 @@
     anchorY: 72,        // line height at the (off-screen) anchors
     staticSag: 16,      // sag of the unloaded line at mid-span
     loadSag: 30,        // extra sag at mid-span with the walker on it
-    tapeGap: 120,       // distance between backup tapes
-    backupDrop: [18, 30], // how far the backup hangs below, min/max per loop
-    speed: 30,          // walking speed, px per second (calm)
-    stepLen: 28,        // distance the hips travel per step
+    tapeGap: [80, 155], // distance between backup tapes, min/max (irregular)
+    backupDrop: [12, 34], // how far each backup loop hangs below, min/max
+    stepLen: [22, 32],  // length of each step, min/max
+    stepTime: [0.8, 1.45], // seconds per step, min/max (irregular tempo)
+    pauseChance: 0.16,  // chance of stopping to settle after a step
+    pauseTime: [0.6, 1.8],
     thigh: 25, shin: 25,
     torso: 32, neck: 4, headR: 7.5,
     upperArm: 18, foreArm: 16,
@@ -91,10 +91,9 @@
   const gBackup = el("g");
   const backupPath = el("path", "hl-backup", gBackup);
   const mainPath = el("path", "hl-main");
-  const gTapes = el("g");
   const leash = el("path", "hl-leash");
   const ring = el("circle", "hl-ring"); ring.setAttribute("r", 2.6);
-  const gFar = el("g", "hl-far");
+  const gFar = el("g");
   const farLeg = el("polyline", "hl-body", gFar);
   const farFoot = el("line", "hl-body", gFar);
   const farArm = el("polyline", "hl-body", gFar);
@@ -111,20 +110,18 @@
   function layout() {
     W = svg.clientWidth || W;
     svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-    // Tapes are fixed in x (they're stuck to the webbing).
-    gTapes.textContent = "";
+    // Tape points are fixed in x (they're stuck to the webbing) and spaced
+    // unevenly, with uneven loops, so it looks rigged by hand. Tape not drawn.
     tapes = []; drops = [];
-    const A = spanA(), B = spanB();
-    let i = 0;
-    for (let x = A + CFG.tapeGap * 0.5; x < B; x += CFG.tapeGap, i++) {
-      const r = el("rect", "hl-tape", gTapes);
-      r.setAttribute("width", 3.4); r.setAttribute("height", 9);
-      tapes.push({ x, node: r });
-      // deterministic, slightly uneven loops so it looks rigged by hand
-      const n = Math.sin(i * 12.9898) * 43758.5453;
-      drops.push(CFG.backupDrop[0] + (n - Math.floor(n)) * (CFG.backupDrop[1] - CFG.backupDrop[0]));
+    const A = spanA(), B = spanB(), rnd = rng(7);
+    for (let x = A; x < B; x += between(rnd, CFG.tapeGap)) {
+      tapes.push({ x });
+      drops.push(between(rnd, CFG.backupDrop));
     }
   }
+  // small seeded random generator, so every visit looks the same
+  function rng(seed) { return () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+  const between = (r, [a, b]) => a + r() * (b - a);
   const spanA = () => -0.18 * W - 80;
   const spanB = () => 1.18 * W + 80;
 
@@ -163,11 +160,26 @@
   }
 
   // ---------- bounce: a damped spring kicked at each footfall ----------
-  let bounce = 0, bounceV = 0, lastStep = -1;
-  const OMEGA = 2 * Math.PI * 1.6, ZETA = 0.28;
+  // A long line swings slowly (well under 1 Hz) and each step adds only a nudge.
+  let bounce = 0, bounceV = 0;
+  const OMEGA = 2 * Math.PI * 0.42, ZETA = 0.12;
 
-  // ---------- main loop ----------
-  let s = -60;   // walker distance (hip x)
+  // ---------- gait: footfalls with uneven lengths and timing ----------
+  // plants[k] = where footfall k lands. During step n the stance foot is on
+  // plants[n] and the other foot swings from plants[n-1] to plants[n+1].
+  const gaitRnd = rng(11);
+  let plants, n, p, stepDur, hold;
+  function startCrossing(x0) {
+    plants = [x0 - 30, x0 - 4];
+    n = 1; p = 0; hold = 0;
+    stepDur = between(gaitRnd, CFG.stepTime);
+  }
+  function plant(k) {
+    while (plants.length <= k) plants.push(plants[plants.length - 1] + between(gaitRnd, CFG.stepLen));
+    return plants[k];
+  }
+  startCrossing(-70);
+  let s = -70;   // walker distance (hip x)
   let t = 0, last = performance.now();
   const manual = new URLSearchParams(location.search).has("manual");
   function frame(now) {
@@ -180,14 +192,21 @@
     if (paused) dt = 0;
     dt *= speedMul;
     t += dt;
-    s += CFG.speed * dt;
-    if (s > W + 70) { s = -70; lastStep = -1; }
+    // advance the gait: walk a step, sometimes stop and settle, repeat
+    if (hold > 0) hold -= dt;
+    else {
+      p += dt / stepDur;
+      if (p >= 1) {
+        p -= 1; n += 1;
+        stepDur = between(gaitRnd, CFG.stepTime);
+        bounceV += between(gaitRnd, [1.5, 4]);       // gentle nudge on footfall
+        if (gaitRnd() < CFG.pauseChance) { hold = between(gaitRnd, CFG.pauseTime); p = 0; }
+      }
+    }
+    const pe = smooth(p) * 0.6 + p * 0.4;   // hips surge a little mid-step
+    s = (plant(n - 1) + plant(n)) / 2 + ((plant(n + 1) - plant(n - 1)) / 2) * pe;
+    if (s > W + 70) { startCrossing(-70); s = -70; }
 
-    const S = CFG.stepLen;
-    const n = Math.floor(s / S), p = s / S - n;
-
-    // Footfall: kick the line a little (calm walk, so it's small).
-    if (n !== lastStep) { if (lastStep !== -1) bounceV += 26; lastStep = n; }
     const acc = -OMEGA * OMEGA * bounce - 2 * ZETA * OMEGA * bounceV;
     bounceV += acc * dt; bounce += bounceV * dt;
 
@@ -198,9 +217,9 @@
     const Y = x => lineY(x, s, d);
 
     // Feet: stance foot planted, swing foot travels 2 steps with a low lift.
-    const stanceX = n * S + S * 0.5;
+    const stanceX = plant(n);
     const q = smooth((p - 0.12) / 0.76);
-    const swingX = (n - 1) * S + S * 0.5 + 2 * S * q;
+    const swingX = plant(n - 1) + (plant(n + 1) - plant(n - 1)) * q;
     const lift = 4.5 * Math.sin(Math.PI * q);
     const feet = [
       [stanceX, Y(stanceX) - 2.5],
@@ -228,8 +247,12 @@
       const h = [e[0] + CFG.foreArm * Math.sin(rad(foreDeg)), e[1] - CFG.foreArm * Math.cos(rad(foreDeg))];
       return [shoulder, e, h];
     }
-    const near = arm(72 - 14 * bal - 6 * bal2, 18 - 22 * bal);
-    const far  = arm(-70 - 14 * bal + 6 * bal2, -12 - 22 * bal);
+    // Elbows hinge on their own: a slow drift plus small, quicker tweaks.
+    const nUp = 72 - 13 * bal - 6 * bal2, fUp = -70 - 13 * bal + 6 * bal2;
+    const nElbow = -55 + 20 * noise(t * 0.9, 7.3) + 6 * noise(t * 2.8, 2.2);
+    const fElbow = 58 + 20 * noise(t * 0.8, 9.1) + 6 * noise(t * 3.1, 5.6);
+    const near = arm(nUp, nUp + nElbow);
+    const far  = arm(fUp, fUp + fElbow);
 
     function leg(ankle) {
       const k = knee(hip, ankle);
@@ -240,8 +263,8 @@
 
     // ---------- draw line ----------
     let dMain = "";
-    const step = Math.max(6, W / 160);
-    for (let x = -10; x <= W + 10; x += step) dMain += (dMain ? "L" : "M") + x.toFixed(1) + "," + Y(x).toFixed(2);
+    const dx = Math.max(6, W / 160);
+    for (let x = -10; x <= W + 10; x += dx) dMain += (dMain ? "L" : "M") + x.toFixed(1) + "," + Y(x).toFixed(2);
     mainPath.setAttribute("d", dMain);
 
     // backup: hangs in loops between tapes
@@ -249,16 +272,11 @@
     for (let i = 0; i < tapes.length - 1; i++) {
       const x0 = tapes[i].x, x1 = tapes[i + 1].x;
       if (x1 < -20 || x0 > W + 20) continue;
-      const y0 = Y(x0) + 1.5, y1 = Y(x1) + 1.5, xm = (x0 + x1) / 2;
+      const y0 = Y(x0), y1 = Y(x1), xm = (x0 + x1) / 2;
       const cy = (y0 + y1) / 2 + 2 * drops[i];
       dB += `M${x0.toFixed(1)},${y0.toFixed(2)} Q${xm.toFixed(1)},${cy.toFixed(2)} ${x1.toFixed(1)},${y1.toFixed(2)} `;
     }
     backupPath.setAttribute("d", dB);
-    for (const tp of tapes) {
-      const y = Y(tp.x), ang = Math.atan(lineSlope(tp.x, s, d)) * 180 / Math.PI;
-      tp.node.setAttribute("x", tp.x - 1.7); tp.node.setAttribute("y", y - 4);
-      tp.node.setAttribute("transform", `rotate(${ang.toFixed(2)} ${tp.x} ${y})`);
-    }
 
     // leash: harness to a ring sliding on the line just behind the walker
     const harness = [hip[0] - 1, hip[1] + 1];
@@ -294,7 +312,7 @@
   document.getElementById("pause").addEventListener("change", e => { paused = e.target.checked; });
   // for screen recording: ?start=<px> jumps the walker
   const st = new URLSearchParams(location.search).get("start");
-  if (st) s = +st;
+  if (st) { startCrossing(+st); s = +st; }
 })();
 </script>
 </body>
