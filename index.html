@@ -58,11 +58,9 @@
     </div>
   </section>
 
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Highline</span><i>✺</i><span>Longline</span><i>✺</i><span>Trickline</span><i>✺</i><span>Waterline</span><i>✺</i><span>Rodeo</span><i>✺</i><span>Midline</span><i>✺</i>
-      <span>Highline</span><i>✺</i><span>Longline</span><i>✺</i><span>Trickline</span><i>✺</i><span>Waterline</span><i>✺</i><span>Rodeo</span><i>✺</i><span>Midline</span><i>✺</i>
-    </div>
+  <!-- A stick figure walking a highline. Drawn and animated by highline.js -->
+  <div class="highline-band" aria-hidden="true">
+    <svg id="highline" preserveAspectRatio="none"></svg>
   </div>
 
   <main id="main">
@@ -150,5 +148,6 @@
   </footer>
 
   <script src="home.js"></script>
+  <script src="highline.js"></script>
 </body>
 </html>
