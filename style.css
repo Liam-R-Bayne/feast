@@ -107,6 +107,29 @@ body:not(.home) .site-header {
 .site-nav a:hover,
 .site-nav a[aria-current="page"] { background: var(--mustard); border-color: var(--mustard); color: var(--bark); }
 
+/* Map link: Liam's peace sun. On hover or keyboard focus the sun fades
+   out and the word "Map" fades in. The word is always in the link text,
+   so screen readers hear "Map". Touch screens (no hover) just show the
+   sun; a tap goes straight to the map. */
+.site-nav a.nav-map {
+  display: grid; place-items: center;
+  border-color: transparent;
+  min-width: 4.4rem;
+}
+.site-nav a.nav-map:hover { background: none; border-color: transparent; color: inherit; }
+.nav-map > * { grid-area: 1 / 1; transition: opacity .3s ease, transform .3s ease; }
+.nav-map-icon { height: 2.5rem; width: auto; margin: -.65rem 0; }
+.nav-map-label { opacity: 0; transform: scale(.85); }
+.site-nav a.nav-map[aria-current="page"] { border-color: transparent; background: none; }
+.site-nav a.nav-map[aria-current="page"] .nav-map-icon { filter: drop-shadow(0 0 6px rgba(212, 167, 44, .7)); }
+@media (hover: hover) {
+  .nav-map:hover .nav-map-icon { opacity: 0; transform: scale(.85) rotate(-20deg); }
+  .nav-map:hover .nav-map-label { opacity: 1; transform: none; }
+  .site-nav a.nav-map:hover { border-color: rgba(243, 236, 220, .45); }
+}
+.nav-map:focus-visible .nav-map-icon { opacity: 0; transform: scale(.85) rotate(-20deg); }
+.nav-map:focus-visible .nav-map-label { opacity: 1; transform: none; }
+
 /* ---------- Hero ---------- */
 
 .hero {
@@ -353,6 +376,9 @@ h2 {
   background:
     repeating-linear-gradient(45deg, transparent 0 12px, rgba(167, 158, 136, .14) 12px 24px);
 }
+.art-slot--filled { position: relative; border-color: transparent; background: none; }
+.art-slot--filled .card-art { position: absolute; inset: 9% 0; height: 82%; width: 100%; transition: transform .6s ease; }
+.explore-card:hover .card-art { transform: rotate(18deg); }
 .art-slot span {
   font-family: var(--mono);
   font-size: .75rem;
