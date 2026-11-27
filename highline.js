@@ -1,6 +1,7 @@
 /* ============================================================
    HIGHLINE BAND  (home page, under the photos)
    A stick figure walks a sagging highline across the band and loops.
+   On page load the walker is already in frame near the left edge.
    The main line dips under the walker and sways slowly; the backup
    hangs below in uneven loops. Now and then the walker stops and
    fights for balance: bigger lean, arms working, knees softer.
@@ -267,7 +268,9 @@
     return;
   }
 
-  startCrossing(params.has("hl-start") ? +params.get("hl-start") : -70);
+  // First crossing starts with the walker already fully in frame, near the
+  // left edge. After walking off the right edge they loop back in from the left.
+  startCrossing(params.has("hl-start") ? +params.get("hl-start") : Math.max(110, W * 0.1));
 
   // ?hl-manual lets a script step frames one at a time (used for recordings).
   if (params.has("hl-manual")) {
