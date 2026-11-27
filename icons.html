@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Art icons · Stoke Feast</title>
+  <meta name="description" content="A hand-curated collection of slacklining videos from around the world, with a focus on highlining.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M5 40 Q50 70 95 40' stroke='%23d4a72c' stroke-width='10' fill='none' stroke-linecap='round'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Work+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <a class="brand" href="index.html" aria-label="Stoke Feast home">
+      <svg viewBox="0 0 48 20" aria-hidden="true"><path d="M2 4 Q24 18 46 4" /></svg>
+      <span>Stoke Feast</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="map.html">Map</a>
+      <a href="channels.html">Channels</a>
+      <a href="timeline.html">Timeline</a>
+    </nav>
+  </header>
+
+  <main id="main" class="icons-page">
+    <section class="wrap icons-intro">
+      <p class="eyebrow">Feast Art</p>
+      <h1>Art icons</h1>
+      <p>Every drawing from Feast Art 1, cut out on its own with a transparent background. Copy a snippet to drop one anywhere on the site. The SVG is the sharp, scalable one; a 1024&nbsp;px PNG sits next to it with the same name. Line drawings can also be tinted any colour with <code>art-tint</code>, which follows the text colour.</p>
+    </section>
+    <section class="wrap icon-grid" id="icon-grid" aria-label="All icons"></section>
+  </main>
+
+  <style>
+    .icons-page { padding: 7rem 0 4rem; background: var(--paper); }
+    .icons-intro { max-width: 760px; margin-bottom: 2rem; }
+    .icons-intro .eyebrow { color: var(--rust); }
+    .icons-intro h1 { font-family: var(--display); font-size: clamp(2.4rem, 6vw, 4rem); margin: 0 0 .6rem; color: var(--bark); }
+    .icons-intro code, .icon-card code { font-family: var(--mono); font-size: .78rem; }
+    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+    .icon-card { background: #fff; border: 2px solid var(--bark); border-radius: calc(var(--radius) - 8px); padding: 1rem; display: flex; flex-direction: column; gap: .6rem; }
+    .icon-card.is-wide { grid-column: span 2; }
+    .icon-stage { height: 170px; display: grid; place-items: center; border-radius: 10px;
+      background: conic-gradient(#f3efe6 25%, #fff 0 50%, #f3efe6 0 75%, #fff 0) 0 0 / 18px 18px; }
+    .icon-stage .art { --art-size: 150px; }
+    .icon-card.is-wide .icon-stage .art { height: auto; width: 100%; max-height: 150px; }
+    .icon-tints { display: flex; gap: .5rem; align-items: center; min-height: 2.6rem; }
+    .icon-tints .art-tint { --art-size: 2.4rem; }
+    .icon-card.is-wide .icon-tints .art-tint { width: 8rem; }
+    .icon-tints small { font-family: var(--mono); font-size: .68rem; color: var(--stone); }
+    .icon-card h2 { font-family: var(--mono); font-size: .9rem; margin: 0; color: var(--bark); }
+    .icon-card a { font-size: .85rem; margin-right: .6rem; color: var(--rust); }
+    .icon-card textarea { width: 100%; font-family: var(--mono); font-size: .72rem; border: 1px solid var(--stone); border-radius: 8px; padding: .4rem; resize: none; background: var(--paper); color: var(--bark); }
+    @media (max-width: 600px) { .icon-card.is-wide { grid-column: auto; } }
+  </style>
+  <script>
+    // name, tintable (single colour line drawing), wide
+    const ICONS = [
+      ["hands-highline", true, true],
+      ["peace-sun", false, false],
+      ["mountain-cliff", true], ["mountain-ridge", true], ["mountain-pass", true],
+      ["mountain-tent-tall", true], ["mountain-tent-wide", true], ["mountain-peak", true],
+      ["mountain-sun", false], ["mountain-sun-twin", false], ["mountain-sun-valley", false],
+      ["monkey", true], ["lizard", true],
+    ];
+    const grid = document.getElementById("icon-grid");
+    ICONS.forEach(([name, tint, wide]) => {
+      const src = `images/icons/${name}.svg`;
+      const snippet = `<img class="art${wide ? " art--wide" : ""}" src="${src}" alt="">`;
+      const card = document.createElement("article");
+      card.className = "icon-card" + (wide ? " is-wide" : "");
+      card.innerHTML = `
+        <div class="icon-stage"><img class="art" src="${src}" alt="${name.replace(/-/g, " ")}"></div>
+        <h2>${name}</h2>
+        <div class="icon-tints">${tint
+          ? ["--bark", "--moss", "--mustard", "--rust"].map((c) => `<span class="art-tint" style="--art:url(${src});color:var(${c})"></span>`).join("")
+          : "<small>multi-colour: use as is</small>"}</div>
+        <textarea rows="3" readonly aria-label="HTML for ${name}">${snippet.replace(/</g, "&lt;")}</textarea>
+        <div><a href="${src}" download>SVG</a><a href="images/icons/${name}.png" download>PNG</a></div>`;
+      grid.appendChild(card);
+    });
+    grid.addEventListener("focusin", (e) => { if (e.target.tagName === "TEXTAREA") e.target.select(); });
+  </script>
+
+  <footer class="site-footer">
+    <!-- ART PLACEHOLDER: footer landscape, could become an engraved illustration -->
+    <svg class="footer-art" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <path class="far" d="M0 260 L0 150 L160 90 L280 140 L420 60 L560 130 L700 80 L860 150 L1000 70 L1150 140 L1300 90 L1440 130 L1440 260 Z"/>
+      <path class="line" d="M420 62 Q560 96 700 82"/>
+      <g class="walker" transform="translate(548 76)"><circle cx="0" cy="-15" r="3.2"/><path d="M0 -12 L0 -2 M0 -9 L-8 -13 M0 -9 L8 -14 M0 -2 L-3 6 M0 -2 L3 6"/></g>
+      <path class="near" d="M0 260 L0 200 L120 170 L240 210 L380 160 L520 205 L660 180 L800 215 L960 165 L1100 205 L1260 175 L1440 210 L1440 260 Z"/>
+    </svg>
+    <div class="footer-inner wrap">
+      <div>
+        <p class="footer-brand">Stoke Feast</p>
+        <p class="footer-note">Videos belong to their creators and play from YouTube or Vimeo.</p>
+      </div>
+      <nav aria-label="Footer">
+        <a href="map.html">Map</a>
+        <a href="channels.html">Channels</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

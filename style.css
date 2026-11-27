@@ -364,6 +364,42 @@ h2 {
   border-radius: 999px;
 }
 
+/* ---------- Feast Art icons ----------
+   Liam's drawings, cut out one per file in images/icons/ (see icons.html).
+
+   Original colours:
+     <img class="art" src="images/icons/mountain-sun.svg" alt="">
+   Size: add art--xs / art--sm / art--md / art--lg / art--xl, or set --art-size.
+   Any colour (single-colour line drawings only), takes the text colour:
+     <span class="art-tint art--md" style="--art: url(images/icons/mountain-peak.svg)"></span>
+*/
+.art {
+  --art-size: 6rem;
+  display: inline-block;
+  height: var(--art-size);
+  width: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  object-fit: contain;
+}
+.art--xs { --art-size: 1.5rem; }
+.art--sm { --art-size: 3rem; }
+.art--md { --art-size: 6rem; }
+.art--lg { --art-size: 10rem; }
+.art--xl { --art-size: 16rem; }
+.art--wide { height: auto; width: var(--art-size); }  /* size by width, for hands-highline */
+
+.art-tint {
+  --art-size: 6rem;
+  display: inline-block;
+  width: var(--art-size);
+  height: var(--art-size);
+  vertical-align: middle;
+  background: currentColor;
+  -webkit-mask: var(--art) center / contain no-repeat;
+          mask: var(--art) center / contain no-repeat;
+}
+
 /* ---------- Footer ---------- */
 
 .site-footer { background: var(--sand); color: var(--sand); }
