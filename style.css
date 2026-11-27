@@ -339,6 +339,25 @@ h2 {
 
 .explore { padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(4rem, 9vw, 7rem); }
 .explore .eyebrow { color: var(--rust); }
+
+/* Title row: critters tossed on above, hands-and-line drawing in the space to the right */
+.explore-head { display: flex; align-items: flex-end; gap: clamp(1rem, 4vw, 3rem); }
+.explore-title { flex: none; }
+.explore-title h2 { margin: 0; }
+.tossed { position: relative; height: 5.5rem; margin-bottom: .4rem; }
+.tossed img { position: absolute; height: auto; }
+.tossed-monkey { width: 4.6rem; left: .6rem; top: -.3rem; transform: rotate(-17deg); }
+.tossed-lizard { width: 5.4rem; left: 7.3rem; top: 1.6rem; transform: rotate(28deg); }
+.explore-hands { flex: 1; min-width: 0; max-width: 34rem; height: auto; margin-bottom: -.6rem; transform: rotate(-1.5deg); }
+
+/* A little wonk, so the cards look laid down by hand rather than snapped to a grid */
+.cards .explore-card:nth-child(1) { rotate: -.7deg; }
+.cards .explore-card:nth-child(2) { rotate: .5deg; translate: 0 .35rem; }
+.cards .explore-card:nth-child(3) { rotate: -.3deg; translate: 0 -.15rem; }
+@media (max-width: 700px) {
+  .explore-head { flex-direction: column; align-items: stretch; gap: 1rem; }
+  .explore-hands { align-self: flex-end; width: 85%; margin: 0; }
+}
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
